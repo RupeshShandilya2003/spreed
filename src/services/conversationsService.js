@@ -43,7 +43,11 @@ const fetchConversations = async function(options) {
  * @param {string} token The token of the conversation to be fetched.
  */
 const fetchConversation = async function(token) {
-	return axios.get(generateOcsUrl('apps/spreed/api/v4/room/{token}', { token }))
+	try{
+		return axios.get(generateOcsUrl('apps/spreed/api/v4/room/{token}', { token }))
+	} catch(error){
+		console.debug('Check your Internet!',error)
+	}
 }
 
 /**
@@ -201,8 +205,8 @@ const deleteConversation = async function(token) {
  * @param {string} token The token of the conversation to be deleted.
  */
 const clearConversationHistory = async function(token) {
-	const response = await axios.delete(generateOcsUrl('apps/spreed/api/v1/chat/{token}', { token }))
-	return response
+		const response = await axios.delete(generateOcsUrl('apps/spreed/api/v1/chat/{token}', { token }))
+		return response
 }
 
 /**
